@@ -22,7 +22,6 @@ class RegisterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate את ה-XML של ה-fragment
         val view = inflater.inflate(R.layout.fragment_register, container, false)
 
         etEmail = view.findViewById(R.id.fragment_register_email)

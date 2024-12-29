@@ -54,7 +54,7 @@ class LoginFragment : Fragment() {
                             // TODO: Navigation to home page
                         } else {
                             // Login failed
-                            Toast.makeText(requireContext(), "Login failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                            Toast.makeText(requireContext(), "Login failed: invalid password or email", Toast.LENGTH_LONG).show()
                         }
                     }
             } else {

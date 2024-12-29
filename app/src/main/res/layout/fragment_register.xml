@@ -2,10 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".RegisterFragment">
 
     <ImageView
-        android:id="@+id/register_logo"
+        android:id="@+id/fragment_register_logo"
         android:layout_width="340dp"
         android:layout_height="117dp"
         android:layout_marginTop="80dp"
@@ -16,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/register_title"
+        android:id="@+id/fragment_register_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="66dp"
@@ -28,11 +30,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_logo" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_logo" />
 
 
     <EditText
-        android:id="@+id/register_username_edit"
+        android:id="@+id/fragment_register_username"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="32dp"
@@ -52,10 +54,10 @@
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_title" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_title" />
 
     <EditText
-        android:id="@+id/register_password_edit"
+        android:id="@+id/fragment_register_password"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="32dp"
@@ -73,13 +75,13 @@
         android:paddingBottom="10dp"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/register_email_edit"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_register_email"
         app:layout_constraintHorizontal_bias="0.553"
-        app:layout_constraintStart_toStartOf="@+id/register_email_edit"
-        app:layout_constraintTop_toBottomOf="@+id/register_email_edit" />
+        app:layout_constraintStart_toStartOf="@+id/fragment_register_email"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_email" />
 
     <EditText
-        android:id="@+id/register_email_edit"
+        android:id="@+id/fragment_register_email"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="32dp"
@@ -97,12 +99,12 @@
         android:paddingBottom="10dp"
         android:textColorHint="@color/black"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/register_username_edit"
-        app:layout_constraintStart_toStartOf="@+id/register_username_edit"
-        app:layout_constraintTop_toBottomOf="@+id/register_username_edit" />
+        app:layout_constraintEnd_toEndOf="@+id/fragment_register_username"
+        app:layout_constraintStart_toStartOf="@+id/fragment_register_username"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_username" />
 
     <Button
-        android:id="@+id/register_signup_btn"
+        android:id="@+id/fragment_register_btn_register"
         android:layout_width="190dp"
         android:layout_height="60dp"
         android:text="Register"
@@ -110,7 +112,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_password_edit"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_password"
         app:layout_constraintVertical_bias="0.753" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

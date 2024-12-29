@@ -2,11 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".LoginFragment">
 
 
     <ImageView
-        android:id="@+id/login_logo"
+        android:id="@+id/fragment_login_logo"
         android:layout_width="340dp"
         android:layout_height="117dp"
         android:layout_marginTop="80dp"
@@ -17,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/login_title"
+        android:id="@+id/fragment_login_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="66dp"
@@ -28,10 +30,10 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_logo" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_login_logo" />
 
     <EditText
-        android:id="@+id/login_password_edit"
+        android:id="@+id/fragment_login_password"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="32dp"
@@ -49,13 +51,13 @@
         android:paddingBottom="10dp"
         android:textColorHint="@color/black"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/login_email_edit"
-        app:layout_constraintStart_toStartOf="@+id/login_email_edit"
-        app:layout_constraintTop_toBottomOf="@+id/login_email_edit" />
+        app:layout_constraintEnd_toEndOf="@+id/fragment_login_email"
+        app:layout_constraintStart_toStartOf="@+id/fragment_login_email"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_login_email" />
 
 
     <EditText
-        android:id="@+id/login_email_edit"
+        android:id="@+id/fragment_login_email"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="32dp"
@@ -76,24 +78,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_title" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_login_title" />
 
     <Button
-        android:id="@+id/login_login_btn"
+        android:id="@+id/fragment_login_btn_login"
         android:layout_width="190dp"
         android:layout_height="60dp"
         android:layout_marginBottom="56dp"
         android:text="Login"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/login_password_edit"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_login_password"
         app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="@+id/login_password_edit"
-        app:layout_constraintTop_toBottomOf="@+id/login_signup_link"
+        app:layout_constraintStart_toStartOf="@+id/fragment_login_password"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_login_signup_link"
         app:layout_constraintVertical_bias="0.547" />
 
 
     <TextView
-        android:id="@+id/login_signup_link"
+        android:id="@+id/fragment_login_signup_link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="102dp"
@@ -102,9 +104,9 @@
         android:textColor="@color/black"
         android:text="Don't have an account? Register Now"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/login_login_btn"
-        app:layout_constraintEnd_toEndOf="@+id/login_password_edit"
-        app:layout_constraintStart_toStartOf="@+id/login_password_edit"
-        app:layout_constraintTop_toBottomOf="@+id/login_password_edit" />
+        app:layout_constraintBottom_toTopOf="@+id/fragment_login_btn_login"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_login_password"
+        app:layout_constraintStart_toStartOf="@+id/fragment_login_password"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_login_password" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

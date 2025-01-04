@@ -1,4 +1,4 @@
-package com.example.activityshare
+package com.example.activityshare.modules.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import androidx.navigation.Navigation
+import com.example.activityshare.R
 
 class LoginFragment : Fragment() {
 

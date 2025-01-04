@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".RegisterFragment">
+    tools:context=".modules.register.RegisterFragment">
 
     <ImageView
         android:id="@+id/fragment_register_logo"

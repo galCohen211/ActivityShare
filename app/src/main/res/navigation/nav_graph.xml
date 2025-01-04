@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/register_Fragment"
-        android:name="com.example.activityshare.RegisterFragment"
+        android:name="com.example.activityshare.modules.register.RegisterFragment"
         android:label="Register Fragment"
         tools:layout="@layout/fragment_register" />
 
     <fragment
         android:id="@+id/login_Fragment"
-        android:name="com.example.activityshare.LoginFragment"
+        android:name="com.example.activityshare.modules.login.LoginFragment"
         android:label="Login Fragment"
         tools:layout="@layout/fragment_login">
         <action

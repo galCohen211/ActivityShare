@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    tools:context=".modules.profile.profile">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+        android:id="@+id/fragment_profile_logout_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="0dp"
+        android:background="@null"
+        android:padding="8dp"
+        android:contentDescription="Logout"
+        android:src="@drawable/ic_logout" />
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/fragment_profile_image_view"
+        android:layout_width="398dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:src="@drawable/profile_placeholder" />
+
+    <Button
+        android:id="@+id/fragment_profile_my_activities_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/userprofilebutton"
+        android:text="My Activities"
+        android:textAlignment="viewStart"
+        android:textSize="20sp"
+        android:layout_marginTop="80dp"
+        android:textAllCaps="false"
+        android:drawableEnd="@drawable/baseline_arrow_forward"
+        android:layout_marginBottom="10dp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <Button
+        android:id="@+id/fragment_profile_edit_profile_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/userprofilebutton"
+        android:text="Edit My Profile"
+        android:textAlignment="viewStart"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:drawableEnd="@drawable/baseline_arrow_forward" />
+
+</LinearLayout>

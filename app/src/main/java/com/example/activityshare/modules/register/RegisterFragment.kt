@@ -45,7 +45,6 @@ class RegisterFragment : Fragment() {
                             if (task.isSuccessful) {
                                 Toast.makeText(requireContext(), "User Registered Successfully", Toast.LENGTH_SHORT).show()
                                 Navigation.findNavController(view).navigate(R.id.homePage)
-                                // TODO: Navigation to home page
                             } else {
                                 Toast.makeText(requireContext(), "Registration Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                             }

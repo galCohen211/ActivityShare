@@ -52,7 +52,6 @@ class LoginFragment : Fragment() {
                         if (task.isSuccessful) {
                             // Login successful
                             Toast.makeText(requireContext(), "Welcome $email", Toast.LENGTH_LONG).show()
-                            // TODO: Navigation to home page
                             Navigation.findNavController(view).navigate(R.id.homePage)
                         } else {
                             // Login failed

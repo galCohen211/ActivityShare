@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/feed"
+        android:id="@+id/item_feed"
         android:title="Home"
         android:enabled="true"
         android:icon="@drawable/baseline_home" />
 
     <item
-        android:id="@+id/add"
+        android:id="@+id/item_add"
         android:title="Add Activity"
         android:enabled="true"
         android:icon="@drawable/baseline_add" />

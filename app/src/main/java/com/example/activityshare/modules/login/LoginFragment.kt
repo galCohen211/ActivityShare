@@ -53,6 +53,7 @@ class LoginFragment : Fragment() {
                             // Login successful
                             Toast.makeText(requireContext(), "Welcome $email", Toast.LENGTH_LONG).show()
                             // TODO: Navigation to home page
+                            Navigation.findNavController(view).navigate(R.id.homePage)
                         } else {
                             // Login failed
                             Toast.makeText(requireContext(), "Login failed: invalid password or email", Toast.LENGTH_LONG).show()

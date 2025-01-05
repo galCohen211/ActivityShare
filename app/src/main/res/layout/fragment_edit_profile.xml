@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    tools:context=".modules.profile.editProfile">
+
+    <TextView
+        android:id="@+id/WelcomeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="15dp"
+        android:text="Edit my profile"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textAppearance="@android:style/TextAppearance.Material.Display1" />
+
+    <ImageView
+        android:id="@+id/fragment_edit_profile_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:src="@drawable/upload_photo"
+        android:contentDescription="Profile image" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <EditText
+        android:id="@+id/fragment_edit_profile_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Username"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/fragment_edit_profile_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Email"
+        android:textSize="20sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <Button
+        android:id="@+id/fragment_edit_profile_update_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update my profile"
+        android:textSize="20sp" />
+
+</LinearLayout>

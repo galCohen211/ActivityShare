@@ -102,7 +102,7 @@
         android:layout_marginBottom="20dp"
         android:background="?attr/selectableItemBackground"
         android:textColor="@color/black"
-        android:text="Don't have an account? Click here and register Now"
+        android:text="Don't have an account? Click here and register now"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/fragment_login_btn_login"
         app:layout_constraintEnd_toEndOf="@+id/fragment_login_password"

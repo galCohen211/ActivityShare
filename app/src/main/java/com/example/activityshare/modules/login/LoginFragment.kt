@@ -1,4 +1,4 @@
-package com.example.activityshare
+package com.example.activityshare.modules.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import androidx.navigation.Navigation
+import com.example.activityshare.R
 
 class LoginFragment : Fragment() {
 
@@ -51,7 +52,7 @@ class LoginFragment : Fragment() {
                         if (task.isSuccessful) {
                             // Login successful
                             Toast.makeText(requireContext(), "Welcome $email", Toast.LENGTH_LONG).show()
-                            // TODO: Navigation to home page
+                            Navigation.findNavController(view).navigate(R.id.homePage)
                         } else {
                             // Login failed
                             Toast.makeText(requireContext(), "Login failed: invalid password or email", Toast.LENGTH_LONG).show()

@@ -7,17 +7,47 @@
 
     <fragment
         android:id="@+id/register_Fragment"
-        android:name="com.example.activityshare.RegisterFragment"
+        android:name="com.example.activityshare.modules.register.RegisterFragment"
         android:label="Register Fragment"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_register_Fragment_to_homePage"
+            app:destination="@id/homePage" />
+    </fragment>
 
     <fragment
         android:id="@+id/login_Fragment"
-        android:name="com.example.activityshare.LoginFragment"
+        android:name="com.example.activityshare.modules.login.LoginFragment"
         android:label="Login Fragment"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_login_Fragment_to_register_Fragment"
             app:destination="@id/register_Fragment" />
+        <action
+            android:id="@+id/action_login_Fragment_to_homePage"
+            app:destination="@id/homePage" />
     </fragment>
+    <fragment
+        android:id="@+id/homePage"
+        android:name="com.example.activityshare.modules.homePage.homePage"
+        android:label="fragment_home_page"
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_homePage_to_profile"
+            app:destination="@id/profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.activityshare.modules.profile.profile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profile_to_editProfile"
+            app:destination="@id/editProfile" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfile"
+        android:name="com.example.activityshare.modules.profile.editProfile"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
 </navigation>

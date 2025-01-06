@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         // Observe NavController to listen for fragment changes
         navController.addOnDestinationChangedListener { _, destination, _ ->
             // Hide bottom bar if the current fragment is Login or Register
-            if (destination.id == R.id.login_Fragment || destination.id == R.id.register_Fragment) {
+            if (destination.id == R.id.login_Fragment || destination.id == R.id.register_Fragment || destination.id == R.id.forgotPassword) {
                 bottomBar.visibility = View.GONE
             } else {
                 bottomBar.visibility = View.VISIBLE

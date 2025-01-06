@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -18,6 +19,7 @@ class RegisterFragment : Fragment() {
     private lateinit var etPassword: EditText
     private lateinit var btnRegister: MaterialButton
     private lateinit var auth: FirebaseAuth
+    private lateinit var linkLogin: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,8 +30,13 @@ class RegisterFragment : Fragment() {
         etEmail = view.findViewById(R.id.fragment_register_email)
         etPassword = view.findViewById(R.id.fragment_register_password)
         btnRegister = view.findViewById(R.id.fragment_register_btn_register)
+        linkLogin = view.findViewById(R.id.fragment_register_login_link)
 
         auth = FirebaseAuth.getInstance()
+
+        linkLogin.setOnClickListener(){
+            Navigation.findNavController(view).navigate(R.id.login_Fragment)
+        }
 
         btnRegister.setOnClickListener {
             val email = etEmail.text.toString()

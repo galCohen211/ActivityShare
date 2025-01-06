@@ -3,15 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".modules.addActivitySharePost.addPost">
 
     <ImageView
         android:id="@+id/fragment_add_post_image"
         android:layout_width="match_parent"
         android:layout_height="197dp"
-        app:srcCompat="@drawable/add_photo" />
+        app:srcCompat="@drawable/add_photo"
+        android:layout_marginBottom="16dp" /> <!-- Added margin bottom -->
 
     <EditText
         android:id="@+id/fragment_add_post_content"
@@ -21,7 +24,8 @@
         android:hint="Enter a description for your activity post..."
         android:scrollbars="vertical"
         android:textSize="18sp"
-        android:background="@drawable/add_post_background"/>
+        android:background="@drawable/add_post_background"
+        android:layout_marginBottom="16dp" /> <!-- Added margin bottom -->
 
     <EditText
         android:id="@+id/fragment_add_post_date"
@@ -33,7 +37,8 @@
         android:inputType="none"
         android:padding="12dp"
         android:textSize="16sp"
-        android:background="@drawable/add_post_background" />
+        android:background="@drawable/add_post_background"
+        android:layout_marginBottom="16dp" /> <!-- Added margin bottom -->
 
     <EditText
         android:id="@+id/fragment_add_post_time"
@@ -45,12 +50,14 @@
         android:inputType="none"
         android:padding="12dp"
         android:textSize="16sp"
-        android:background="@drawable/add_post_background"/>
+        android:background="@drawable/add_post_background"
+        android:layout_marginBottom="16dp" />
 
     <Button
         android:id="@+id/fragment_add_post_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Activity Share post"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_marginBottom="16dp" />
 </LinearLayout>

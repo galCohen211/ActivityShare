@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.item_add -> {
-                    //TODO: Navigate to add activity page
+                    navController.navigate(R.id.addPost)
                     true
                 }
                 R.id.item_profile -> {

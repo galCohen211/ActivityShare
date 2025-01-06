@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_homePage_to_profile"
             app:destination="@id/profile" />
+        <action
+            android:id="@+id/action_homePage_to_addPost"
+            app:destination="@id/addPost" />
     </fragment>
     <fragment
         android:id="@+id/profile"
@@ -50,4 +53,9 @@
         android:name="com.example.activityshare.modules.profile.editProfile"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/addPost"
+        android:name="com.example.activityshare.modules.addActivitySharePost.addPost"
+        android:label="fragment_add_post"
+        tools:layout="@layout/fragment_add_post" />
 </navigation>

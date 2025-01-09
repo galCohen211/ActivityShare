@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_register_Fragment_to_homePage"
             app:destination="@id/homePage" />
+        <action
+            android:id="@+id/action_register_Fragment_to_login_Fragment"
+            app:destination="@id/login_Fragment" />
     </fragment>
 
     <fragment
@@ -26,6 +29,9 @@
         <action
             android:id="@+id/action_login_Fragment_to_homePage"
             app:destination="@id/homePage" />
+        <action
+            android:id="@+id/action_login_Fragment_to_forgotPassword"
+            app:destination="@id/forgotPassword" />
     </fragment>
     <fragment
         android:id="@+id/homePage"
@@ -35,6 +41,9 @@
         <action
             android:id="@+id/action_homePage_to_profile"
             app:destination="@id/profile" />
+        <action
+            android:id="@+id/action_homePage_to_addPost"
+            app:destination="@id/addPost" />
     </fragment>
     <fragment
         android:id="@+id/profile"
@@ -50,4 +59,18 @@
         android:name="com.example.activityshare.modules.profile.editProfile"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/addPost"
+        android:name="com.example.activityshare.modules.addActivitySharePost.addPost"
+        android:label="fragment_add_post"
+        tools:layout="@layout/fragment_add_post" />
+    <fragment
+        android:id="@+id/forgotPassword"
+        android:name="com.example.activityshare.modules.login.forgotPassword"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_forgotPassword_to_login_Fragment"
+            app:destination="@id/login_Fragment" />
+    </fragment>
 </navigation>

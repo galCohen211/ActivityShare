@@ -19,6 +19,8 @@ class LoginFragment : Fragment() {
     private lateinit var Password: EditText
     private lateinit var btnLogin: Button
     private lateinit var linkRegister : TextView
+    private lateinit var linkForgotPassword : TextView
+
 
     private lateinit var auth: FirebaseAuth
 
@@ -36,9 +38,14 @@ class LoginFragment : Fragment() {
         Password = view.findViewById(R.id.fragment_login_password)
         btnLogin = view.findViewById(R.id.fragment_login_btn_login)
         linkRegister = view.findViewById(R.id.fragment_login_signup_link)
+        linkForgotPassword = view.findViewById(R.id.fragment_login_forgot_password)
 
         linkRegister.setOnClickListener{
             Navigation.findNavController(view).navigate(R.id.register_Fragment)
+        }
+
+        linkForgotPassword.setOnClickListener{
+            Navigation.findNavController(view).navigate(R.id.forgotPassword)
         }
 
         btnLogin.setOnClickListener {

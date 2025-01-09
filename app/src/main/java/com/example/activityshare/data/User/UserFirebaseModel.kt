@@ -1,4 +1,4 @@
 package com.example.activityshare.data.User
 
-class UserFirebaseMode {
+class UserFirebaseModel {
 }

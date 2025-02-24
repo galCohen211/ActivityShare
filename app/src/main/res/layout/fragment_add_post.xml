@@ -13,8 +13,9 @@
         android:id="@+id/fragment_add_post_image"
         android:layout_width="match_parent"
         android:layout_height="197dp"
-        app:srcCompat="@drawable/add_photo"
-        android:layout_marginBottom="16dp" /> <!-- Added margin bottom -->
+        android:layout_marginBottom="16dp"
+        android:focusable="auto"
+        app:srcCompat="@drawable/add_photo" /> <!-- Added margin bottom -->
 
     <EditText
         android:id="@+id/fragment_add_post_content"

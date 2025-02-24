@@ -15,6 +15,7 @@ class editProfile : Fragment() {
 
     private lateinit var passwordEditText: EditText
     private lateinit var updateButton: Button
+    private lateinit var usernameEditText: EditText
     private lateinit var viewModel: EditProfileViewModel
 
     override fun onCreateView(
@@ -25,11 +26,13 @@ class editProfile : Fragment() {
 
         passwordEditText = view.findViewById(R.id.fragment_edit_profile_password)
         updateButton = view.findViewById(R.id.fragment_edit_profile_update_button)
+        usernameEditText = view.findViewById(R.id.fragment_edit_profile_username)
 
         viewModel = ViewModelProvider(this).get(EditProfileViewModel::class.java)
 
         updateButton.setOnClickListener {
             updatePassword()
+            updateUsername()
         }
 
         return view
@@ -42,6 +45,17 @@ class editProfile : Fragment() {
                 Toast.makeText(requireContext(), "Password updated successfully!", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(requireContext(), "Error updating password.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun updateUsername() {
+        val newUsername = usernameEditText.text.toString().trim()
+        viewModel.updateUsername(newUsername, requireActivity()) { success ->
+            if (success) {
+                Toast.makeText(requireContext(), "Username updated successfully!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Error updating username.", Toast.LENGTH_SHORT).show()
             }
         }
     }

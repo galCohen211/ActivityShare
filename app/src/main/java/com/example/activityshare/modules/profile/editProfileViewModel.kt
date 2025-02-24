@@ -5,10 +5,12 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 
 class EditProfileViewModel : ViewModel() {
 
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     fun updatePassword(newPassword: String, activity: Activity, callback: (Boolean) -> Unit) {
         val user: FirebaseUser? = firebaseAuth.currentUser
@@ -24,6 +26,25 @@ class EditProfileViewModel : ViewModel() {
             }
         } else {
             Log.e("EditProfileViewModel", "User is null or password is empty.")
+            callback(false)
+        }
+    }
+
+    fun updateUsername(newUsername: String, activity: Activity, callback: (Boolean) -> Unit) {
+        val userId = firebaseAuth.currentUser?.uid
+
+        if (userId != null && newUsername.isNotEmpty()) {
+            db.collection("users").document(userId).update("username", newUsername)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        callback(true)
+                    } else {
+                        Log.e("EditProfileViewModel", "Error updating username: ${task.exception?.message}")
+                        callback(false)
+                    }
+                }
+        } else {
+            Log.e("EditProfileViewModel", "User is null or username is empty.")
             callback(false)
         }
     }

@@ -60,7 +60,8 @@ class RegisterFragment : Fragment() {
                                     val user = hashMapOf(
                                         "userId" to userId,
                                         "email" to email,
-                                        "username" to username
+                                        "username" to username,
+                                        "avatar" to ""
                                     )
                                     db.collection("users").document(userId)
                                         .set(user)

@@ -12,13 +12,16 @@ import androidx.navigation.Navigation
 import com.example.activityshare.R
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterFragment : Fragment() {
 
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
+    private lateinit var etUsername: EditText
     private lateinit var btnRegister: MaterialButton
     private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
     private lateinit var linkLogin: TextView
 
     override fun onCreateView(
@@ -29,35 +32,51 @@ class RegisterFragment : Fragment() {
 
         etEmail = view.findViewById(R.id.fragment_register_email)
         etPassword = view.findViewById(R.id.fragment_register_password)
+        etUsername = view.findViewById(R.id.fragment_register_username)
         btnRegister = view.findViewById(R.id.fragment_register_btn_register)
         linkLogin = view.findViewById(R.id.fragment_register_login_link)
 
         auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
 
-        linkLogin.setOnClickListener(){
+        linkLogin.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.login_Fragment)
         }
 
         btnRegister.setOnClickListener {
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
+            val username = etUsername.text.toString()
 
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                if(password.length<6){
+            if (email.isNotEmpty() && password.isNotEmpty() && username.isNotEmpty()) {
+                if (password.length < 6) {
                     Toast.makeText(requireContext(), "Password must be at least 6 characters", Toast.LENGTH_SHORT).show()
-                }
-                else{
+                } else {
                     auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(requireActivity()) { task ->
                             if (task.isSuccessful) {
-                                Toast.makeText(requireContext(), "User Registered Successfully", Toast.LENGTH_SHORT).show()
-                                Navigation.findNavController(view).navigate(R.id.homePage)
+                                val userId = auth.currentUser?.uid
+                                if (userId != null) {
+                                    val user = hashMapOf(
+                                        "userId" to userId,
+                                        "email" to email,
+                                        "username" to username
+                                    )
+                                    db.collection("users").document(userId)
+                                        .set(user)
+                                        .addOnSuccessListener {
+                                            Toast.makeText(requireContext(), "User Registered Successfully", Toast.LENGTH_SHORT).show()
+                                            Navigation.findNavController(view).navigate(R.id.homePage)
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Toast.makeText(requireContext(), "Failed to save user data: ${e.message}", Toast.LENGTH_SHORT).show()
+                                        }
+                                }
                             } else {
                                 Toast.makeText(requireContext(), "Registration Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                             }
                         }
                 }
-
             } else {
                 Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
             }

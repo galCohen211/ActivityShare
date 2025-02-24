@@ -65,7 +65,7 @@ class RegisterFragment : Fragment() {
                                     db.collection("users").document(userId)
                                         .set(user)
                                         .addOnSuccessListener {
-                                            Toast.makeText(requireContext(), "User Registered Successfully", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(requireContext(), "${username} Registered Successfully", Toast.LENGTH_SHORT).show()
                                             Navigation.findNavController(view).navigate(R.id.homePage)
                                         }
                                         .addOnFailureListener { e ->

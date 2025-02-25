@@ -84,7 +84,7 @@ class EditProfileViewModel : ViewModel() {
                         document.reference.update("username", newUsername)
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-//                                    Log.d("EditProfileViewModel", "Username updated successfully in posts")
+                                    Log.d("EditProfileViewModel", "Username updated successfully in posts")
                                 } else {
                                     Log.e("EditProfileViewModel", "Error updating username in posts: ${task.exception?.message}")
                                 }

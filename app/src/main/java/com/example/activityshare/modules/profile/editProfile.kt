@@ -53,11 +53,9 @@ class editProfile : Fragment() {
             if (newPassword.isNotEmpty()) {
                 updatePassword()
             }
-
             if (newUsername.isNotEmpty()) {
                 updateUsername()
             }
-
             imageUri?.let { uri ->
                 uploadImageToFirebase(uri)
             }

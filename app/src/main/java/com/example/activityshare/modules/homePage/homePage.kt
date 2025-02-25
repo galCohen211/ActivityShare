@@ -57,7 +57,6 @@ class homePage : Fragment() {
                 postList.clear()
                 for (document in documents) {
                     val post = document.toObject(Post::class.java)
-                    Toast.makeText(requireContext(), post.content, Toast.LENGTH_SHORT).show()
                     postList.add(post)
                 }
                 postsAdapter.notifyDataSetChanged()

@@ -40,7 +40,6 @@ class EditProfileViewModel : ViewModel() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         updateUsernameInPosts(newUsername,callback)
-                        callback(true)
                     } else {
                         Log.e("EditProfileViewModel", "Error updating username: ${task.exception?.message}")
                         callback(false)
@@ -64,9 +63,8 @@ class EditProfileViewModel : ViewModel() {
             .update("avatar", imageUri)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-//                    Log.d("EditProfileViewModel", "Profile image URL updated successfully: $imageUri")
+                    Log.d("EditProfileViewModel", "Profile image URL updated successfully: $imageUri")
                     updateAvatarInPosts(imageUri,callback)
-                    callback(true)
                 } else {
                     Log.e("EditProfileViewModel", "Error updating profile image URL: ${task.exception?.message}")
                     callback(false)

@@ -53,7 +53,7 @@ class editProfile : Fragment() {
 
             imageUri?.let { uri ->
                 uploadImageToFirebase(uri)
-            } ?: Toast.makeText(requireContext(), "Please select an image first", Toast.LENGTH_SHORT).show()
+            }
         }
 
         profileImageView.setOnClickListener {
@@ -72,7 +72,7 @@ class editProfile : Fragment() {
             if (success) {
                 Toast.makeText(requireContext(), "Profile image updated successfully!", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(requireContext(), "Error updating profile image.", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(requireContext(), "Error updating profile image.", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -83,7 +83,7 @@ class editProfile : Fragment() {
             if (success) {
                 Toast.makeText(requireContext(), "Password updated successfully!", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(requireContext(), "Error updating password.", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(requireContext(), "Error updating password.", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -94,7 +94,7 @@ class editProfile : Fragment() {
             if (success) {
                 Toast.makeText(requireContext(), "Username updated successfully!", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(requireContext(), "Error updating username.", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(requireContext(), "Error updating username.", Toast.LENGTH_SHORT).show()
             }
         }
     }

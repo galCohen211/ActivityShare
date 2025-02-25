@@ -39,6 +39,7 @@ class EditProfileViewModel : ViewModel() {
             db.collection("users").document(userId).update("username", newUsername)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+                        updateUsernameInPosts(newUsername,callback)
                         callback(true)
                     } else {
                         Log.e("EditProfileViewModel", "Error updating username: ${task.exception?.message}")
@@ -63,7 +64,8 @@ class EditProfileViewModel : ViewModel() {
             .update("avatar", imageUri)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("EditProfileViewModel", "Profile image URL updated successfully: $imageUri")
+//                    Log.d("EditProfileViewModel", "Profile image URL updated successfully: $imageUri")
+                    updateAvatarInPosts(imageUri,callback)
                     callback(true)
                 } else {
                     Log.e("EditProfileViewModel", "Error updating profile image URL: ${task.exception?.message}")
@@ -71,5 +73,68 @@ class EditProfileViewModel : ViewModel() {
                 }
             }
     }
+
+    fun updateUsernameInPosts(newUsername: String, callback: (Boolean) -> Unit) {
+        val userId = firebaseAuth.currentUser?.uid
+
+        if (userId != null) {
+            db.collection("posts")
+                .whereEqualTo("userId", userId)
+                .get()
+                .addOnSuccessListener { querySnapshot ->
+                    for (document in querySnapshot.documents) {
+                        document.reference.update("username", newUsername)
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+//                                    Log.d("EditProfileViewModel", "Username updated successfully in posts")
+                                } else {
+                                    Log.e("EditProfileViewModel", "Error updating username in posts: ${task.exception?.message}")
+                                }
+                            }
+                    }
+                    callback(true)
+                }
+                .addOnFailureListener { e ->
+                    Log.e("EditProfileViewModel", "Error retrieving posts: ${e.message}")
+                    callback(false)
+                }
+        } else {
+            Log.e("EditProfileViewModel", "User is not authenticated")
+            callback(false)
+        }
+    }
+
+    fun updateAvatarInPosts(newAvatarUrl: Uri, callback: (Boolean) -> Unit) {
+        val userId = firebaseAuth.currentUser?.uid
+
+        if (userId != null) {
+            db.collection("posts")
+                .whereEqualTo("userId", userId)
+                .get()
+                .addOnSuccessListener { querySnapshot ->
+                    for (document in querySnapshot.documents) {
+                        document.reference.update("avatar", newAvatarUrl)
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    Log.d("EditProfileViewModel", "Avatar updated successfully in posts")
+                                } else {
+                                    Log.e("EditProfileViewModel", "Error updating avatar in posts: ${task.exception?.message}")
+                                }
+                            }
+                    }
+                    callback(true)
+                }
+                .addOnFailureListener { e ->
+                    Log.e("EditProfileViewModel", "Error retrieving posts: ${e.message}")
+                    callback(false)
+                }
+        } else {
+            Log.e("EditProfileViewModel", "User is not authenticated")
+            callback(false)
+        }
+    }
+
+
+
 
 }

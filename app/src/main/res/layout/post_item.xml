@@ -31,24 +31,19 @@
             android:textStyle="bold"
             android:textColor="@android:color/black" />
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Edit"
-            app:srcCompat="@drawable/baseline_account"
-            tools:ignore="UseCompoundDrawables" />
+        <TextView
+            android:id="@+id/post_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/imageButton2"
+        <ImageView
+            android:id="@+id/post_user_image"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Delete"
-            app:srcCompat="@drawable/baseline_account"
-            tools:ignore="UseCompoundDrawables" />
+            android:scaleType="centerCrop" />
     </LinearLayout>
 
     <TextView
@@ -67,5 +62,6 @@
         android:text=""
         android:textColor="@android:color/darker_gray"
         android:textSize="14sp" />
+
 
 </LinearLayout>

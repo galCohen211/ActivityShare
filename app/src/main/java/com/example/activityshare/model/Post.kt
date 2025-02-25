@@ -11,5 +11,7 @@ data class Post(
     val content: String = "",
     val date: String = "",
     val time: String = "",
-    val imageUri: String = ""
+    val imageUri: String = "",
+    val username: String = "",
+    val avatar: String = ""
 ) : Parcelable

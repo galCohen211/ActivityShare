@@ -42,6 +42,8 @@ class addPost : Fragment() {
     private lateinit var createButton: Button
     private lateinit var postImage: ImageView
     private var imageUri: Uri? = null
+    private var profileImage: String? = null
+    private var username: String? = null
 
     private val imagePickerLauncher = registerForActivityResult(
         ActivityResultContracts.GetContent()
@@ -86,6 +88,7 @@ class addPost : Fragment() {
         time.setOnClickListener {
             openTimePicker()
         }
+
 
         createButton.setOnClickListener {
             val content = content.text.toString().trim()
@@ -239,25 +242,50 @@ class addPost : Fragment() {
         time: String,
         imageUri: String?
     ) {
-        val post = hashMapOf(
-            "postId" to postId,
-            "userId" to userId,
-            "content" to content,
-            "date" to date,
-            "time" to time,
-            "imageUri" to (imageUri ?: ""),
-            "timestamp" to System.currentTimeMillis()
-        )
+//        val post = hashMapOf(
+//            "postId" to postId,
+//            "userId" to userId,
+//            "content" to content,
+//            "date" to date,
+//            "time" to time,
+//            "imageUri" to (imageUri ?: ""),
+//            "timestamp" to System.currentTimeMillis()
+//        )
 
-        firestore.collection("posts").document(postId)
-            .set(post)
-            .addOnSuccessListener {
-                Toast.makeText(requireContext(), "Post Created!", Toast.LENGTH_SHORT).show()
-                //clearFields()
+        firestore.collection("users").document(userId).get()
+            .addOnSuccessListener { userDocument ->
+                val username = userDocument.getString("username")
+                val avatar = userDocument.getString("avatar")
+
+                val post = hashMapOf(
+                    "postId" to postId,
+                    "userId" to userId,
+                    "content" to content,
+                    "date" to date,
+                    "time" to time,
+                    "imageUri" to (imageUri ?: ""),
+                    "timestamp" to System.currentTimeMillis(),
+                    "username" to username,
+                    "avatar" to avatar
+                )
+
+
+
+                firestore.collection("posts").document(postId)
+                    .set(post)
+                    .addOnSuccessListener {
+                        Toast.makeText(requireContext(), "Post Created!", Toast.LENGTH_SHORT).show()
+                        //clearFields()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(
+                            requireContext(),
+                            "Failed to create post",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
             }
-            .addOnFailureListener {
-                Toast.makeText(requireContext(), "Failed to create post", Toast.LENGTH_SHORT)
-                    .show()
-            }
+
     }
 }

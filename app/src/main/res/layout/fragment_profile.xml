@@ -78,7 +78,4 @@
             app:backgroundTint="@color/white"
             app:tint="@null" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
-
 </LinearLayout>

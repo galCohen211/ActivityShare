@@ -1,32 +1,36 @@
 package com.example.activityshare.modules.profile
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.ViewModelProvider
 import com.example.activityshare.R
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [editProfile.newInstance] factory method to
- * create an instance of this fragment.
- */
 class editProfile : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private lateinit var passwordEditText: EditText
+    private lateinit var updateButton: Button
+    private lateinit var usernameEditText: EditText
+    private lateinit var viewModel: EditProfileViewModel
+    private lateinit var profileImageView: ImageView
+    private var imageUri: Uri? = null
+
+
+    private val imagePickerLauncher = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        uri?.let {
+            imageUri = it
+            profileImageView.setImageURI(it)
+            uploadImageToFirebase(it)
         }
     }
 
@@ -34,27 +38,64 @@ class editProfile : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_profile, container, false)
+        val view = inflater.inflate(R.layout.fragment_edit_profile, container, false)
+
+        passwordEditText = view.findViewById(R.id.fragment_edit_profile_password)
+        updateButton = view.findViewById(R.id.fragment_edit_profile_update_button)
+        usernameEditText = view.findViewById(R.id.fragment_edit_profile_username)
+        profileImageView = view.findViewById(R.id.fragment_edit_profile_image)
+
+        viewModel = ViewModelProvider(this).get(EditProfileViewModel::class.java)
+
+        updateButton.setOnClickListener {
+            updatePassword()
+            updateUsername()
+
+            imageUri?.let { uri ->
+                uploadImageToFirebase(uri)
+            } ?: Toast.makeText(requireContext(), "Please select an image first", Toast.LENGTH_SHORT).show()
+        }
+
+        profileImageView.setOnClickListener {
+            pickImageFromGallery()
+        }
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment editProfile.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            editProfile().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun pickImageFromGallery() {
+        imagePickerLauncher.launch("image/*")
+    }
+
+    private fun uploadImageToFirebase(uri: Uri) {
+        viewModel.uploadProfileImage(uri, requireActivity()) { success ->
+            if (success) {
+                Toast.makeText(requireContext(), "Profile image updated successfully!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Error updating profile image.", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun updatePassword() {
+        val newPassword = passwordEditText.text.toString().trim()
+        viewModel.updatePassword(newPassword, requireActivity()) { success ->
+            if (success) {
+                Toast.makeText(requireContext(), "Password updated successfully!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Error updating password.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun updateUsername() {
+        val newUsername = usernameEditText.text.toString().trim()
+        viewModel.updateUsername(newUsername, requireActivity()) { success ->
+            if (success) {
+                Toast.makeText(requireContext(), "Username updated successfully!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Error updating username.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

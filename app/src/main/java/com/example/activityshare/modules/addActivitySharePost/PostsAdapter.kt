@@ -19,6 +19,8 @@ class PostsAdapter(
         val content: TextView = itemView.findViewById(R.id.content)
         val date: TextView = itemView.findViewById(R.id.date)
         val time: TextView = itemView.findViewById(R.id.time)
+        val userImage: ImageView = itemView.findViewById(R.id.post_user_image)
+        val username: TextView = itemView.findViewById(R.id.post_username)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
@@ -31,6 +33,12 @@ class PostsAdapter(
         holder.content.text = post.content
         holder.date.text = post.date
         holder.time.text = post.time
+        holder.username.text = post.username
+        Glide.with(holder.userImage.context)
+            .load(post.avatar)
+            .circleCrop()
+            .into(holder.userImage)
+
         // Load image using Glide
         if (post.imageUri.isNotEmpty()) {
             Glide.with(holder.itemView.context)

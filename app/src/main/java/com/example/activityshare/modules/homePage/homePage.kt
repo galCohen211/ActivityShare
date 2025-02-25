@@ -36,7 +36,7 @@ class homePage : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home_page, container, false)
 
         recyclerView = view.findViewById(R.id.recyclerViewHome)
-        progressBar = ProgressBar(requireContext())
+        progressBar = view.findViewById(R.id.fragment_home_page_progress_bar_home)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         postsAdapter = PostsAdapter(postList)
         recyclerView.adapter = postsAdapter
@@ -57,7 +57,6 @@ class homePage : Fragment() {
                 postList.clear()
                 for (document in documents) {
                     val post = document.toObject(Post::class.java)
-                    Toast.makeText(requireContext(), post.content, Toast.LENGTH_SHORT).show()
                     postList.add(post)
                 }
                 postsAdapter.notifyDataSetChanged()

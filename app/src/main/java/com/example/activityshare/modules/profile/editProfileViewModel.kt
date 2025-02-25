@@ -1,0 +1,75 @@
+package com.example.activityshare.modules.profile
+
+import android.app.Activity
+import android.net.Uri
+import android.util.Log
+import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+
+class EditProfileViewModel : ViewModel() {
+
+    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+
+    fun updatePassword(newPassword: String, activity: Activity, callback: (Boolean) -> Unit) {
+        val user: FirebaseUser? = firebaseAuth.currentUser
+
+        if (user != null && newPassword.isNotEmpty()) {
+            user.updatePassword(newPassword).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    callback(true)
+                } else {
+                    Log.e("EditProfileViewModel", "Error updating password: ${task.exception?.message}")
+                    callback(false)
+                }
+            }
+        } else {
+            Log.e("EditProfileViewModel", "User is null or password is empty.")
+            callback(false)
+        }
+    }
+
+    fun updateUsername(newUsername: String, activity: Activity, callback: (Boolean) -> Unit) {
+        val userId = firebaseAuth.currentUser?.uid
+
+        if (userId != null && newUsername.isNotEmpty()) {
+            db.collection("users").document(userId).update("username", newUsername)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        callback(true)
+                    } else {
+                        Log.e("EditProfileViewModel", "Error updating username: ${task.exception?.message}")
+                        callback(false)
+                    }
+                }
+        } else {
+            Log.e("EditProfileViewModel", "User is null or username is empty.")
+            callback(false)
+        }
+    }
+
+    fun uploadProfileImage(imageUri: Uri, activity: Activity, callback: (Boolean) -> Unit) {
+        val userId = firebaseAuth.currentUser?.uid
+        if (userId == null) {
+            Log.e("EditProfileViewModel", "User is not authenticated")
+            callback(false)
+            return
+        }
+
+        db.collection("users").document(userId)
+            .update("avatar", imageUri)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("EditProfileViewModel", "Profile image URL updated successfully: $imageUri")
+                    callback(true)
+                } else {
+                    Log.e("EditProfileViewModel", "Error updating profile image URL: ${task.exception?.message}")
+                    callback(false)
+                }
+            }
+    }
+
+}

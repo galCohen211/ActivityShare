@@ -36,7 +36,7 @@ class homePage : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home_page, container, false)
 
         recyclerView = view.findViewById(R.id.recyclerViewHome)
-        progressBar = ProgressBar(requireContext())
+        progressBar = view.findViewById(R.id.fragment_home_page_progress_bar_home)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         postsAdapter = PostsAdapter(postList)
         recyclerView.adapter = postsAdapter

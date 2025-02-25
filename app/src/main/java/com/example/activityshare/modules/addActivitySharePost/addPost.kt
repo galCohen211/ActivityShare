@@ -242,15 +242,6 @@ class addPost : Fragment() {
         time: String,
         imageUri: String?
     ) {
-//        val post = hashMapOf(
-//            "postId" to postId,
-//            "userId" to userId,
-//            "content" to content,
-//            "date" to date,
-//            "time" to time,
-//            "imageUri" to (imageUri ?: ""),
-//            "timestamp" to System.currentTimeMillis()
-//        )
 
         firestore.collection("users").document(userId).get()
             .addOnSuccessListener { userDocument ->

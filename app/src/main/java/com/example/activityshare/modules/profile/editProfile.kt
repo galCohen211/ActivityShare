@@ -19,7 +19,7 @@ class editProfile : Fragment() {
     private lateinit var passwordEditText: EditText
     private lateinit var updateButton: Button
     private lateinit var usernameEditText: EditText
-    private lateinit var viewModel: EditProfileViewModel
+    private lateinit var viewModel: editProfileViewModel
     private lateinit var profileImageView: ImageView
     private var imageUri: Uri? = null
 
@@ -44,7 +44,7 @@ class editProfile : Fragment() {
         usernameEditText = view.findViewById(R.id.fragment_edit_profile_username)
         profileImageView = view.findViewById(R.id.fragment_edit_profile_image)
 
-        viewModel = ViewModelProvider(this).get(EditProfileViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(editProfileViewModel::class.java)
 
         updateButton.setOnClickListener {
             val newPassword = passwordEditText.text.toString().trim()

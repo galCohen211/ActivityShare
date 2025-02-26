@@ -53,6 +53,9 @@
         <action
             android:id="@+id/action_profile_to_editProfile"
             app:destination="@id/editProfile" />
+        <action
+            android:id="@+id/action_profile_to_viewMyPosts"
+            app:destination="@id/viewMyPosts" />
     </fragment>
     <fragment
         android:id="@+id/editProfile"
@@ -73,4 +76,9 @@
             android:id="@+id/action_forgotPassword_to_login_Fragment"
             app:destination="@id/login_Fragment" />
     </fragment>
+    <fragment
+        android:id="@+id/viewMyPosts"
+        android:name="com.example.activityshare.modules.viewMyActivity.viewMyPosts"
+        android:label="fragment_view_my_posts"
+        tools:layout="@layout/fragment_view_my_posts" />
 </navigation>

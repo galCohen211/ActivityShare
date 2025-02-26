@@ -18,12 +18,16 @@ class profile : Fragment() {
         val binding = inflater.inflate(R.layout.fragment_profile, container, false)
         val logoutButton = binding.findViewById<View>(R.id.fragment_profile_logout_button)
         val editProfile = binding.findViewById<View>(R.id.fragment_profile_edit_profile_button)
+        val myActivitys = binding.findViewById<View>(R.id.fragment_profile_my_activities_button)
 
         logoutButton.setOnClickListener {
             findNavController().navigate(R.id.login_Fragment)
         }
         editProfile.setOnClickListener{
             findNavController().navigate(R.id.editProfile)
+        }
+        myActivitys.setOnClickListener {
+            findNavController().navigate(R.id.viewMyPosts)
         }
         return binding
     }

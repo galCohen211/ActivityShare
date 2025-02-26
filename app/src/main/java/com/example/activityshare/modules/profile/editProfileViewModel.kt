@@ -4,26 +4,28 @@ import android.app.Activity
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
-class EditProfileViewModel : ViewModel() {
+class editProfileViewModel : ViewModel() {
 
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val storage: FirebaseStorage = FirebaseStorage.getInstance()
 
     fun updatePassword(newPassword: String, activity: Activity, callback: (Boolean) -> Unit) {
         val user: FirebaseUser? = firebaseAuth.currentUser
 
         if (user != null && newPassword.isNotEmpty()) {
             user.updatePassword(newPassword).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    callback(true)
-                } else {
+                callback(task.isSuccessful)
+                if (!task.isSuccessful) {
                     Log.e("EditProfileViewModel", "Error updating password: ${task.exception?.message}")
-                    callback(false)
                 }
             }
         } else {
@@ -39,7 +41,7 @@ class EditProfileViewModel : ViewModel() {
             db.collection("users").document(userId).update("username", newUsername)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        callback(true)
+                        updateUsernameInPosts(newUsername, callback)
                     } else {
                         Log.e("EditProfileViewModel", "Error updating username: ${task.exception?.message}")
                         callback(false)
@@ -64,7 +66,7 @@ class EditProfileViewModel : ViewModel() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("EditProfileViewModel", "Profile image URL updated successfully: $imageUri")
-                    callback(true)
+                    updateAvatarInPosts(imageUri,callback)
                 } else {
                     Log.e("EditProfileViewModel", "Error updating profile image URL: ${task.exception?.message}")
                     callback(false)
@@ -72,4 +74,39 @@ class EditProfileViewModel : ViewModel() {
             }
     }
 
+    fun updateUsernameInPosts(newUsername: String, callback: (Boolean) -> Unit) {
+        val userId = firebaseAuth.currentUser?.uid ?: return
+
+        viewModelScope.launch {
+            try {
+                val postsSnapshot = db.collection("posts").whereEqualTo("userId", userId).get().await()
+                for (document in postsSnapshot.documents) {
+                    document.reference.update("username", newUsername).await()
+                }
+                Log.d("EditProfileViewModel", "Username updated successfully in posts")
+                callback(true)
+            } catch (e: Exception) {
+                Log.e("EditProfileViewModel", "Error updating username in posts: ${e.message}")
+                callback(false)
+            }
+        }
+    }
+
+    fun updateAvatarInPosts(newAvatarUrl: Uri, callback: (Boolean) -> Unit) {
+        val userId = firebaseAuth.currentUser?.uid ?: return
+
+        viewModelScope.launch {
+            try {
+                val postsSnapshot = db.collection("posts").whereEqualTo("userId", userId).get().await()
+                for (document in postsSnapshot.documents) {
+                    document.reference.update("avatar", newAvatarUrl.toString()).await()
+                }
+                Log.d("EditProfileViewModel", "Avatar updated successfully in posts")
+                callback(true)
+            } catch (e: Exception) {
+                Log.e("EditProfileViewModel", "Error updating avatar in posts: ${e.message}")
+                callback(false)
+            }
+        }
+    }
 }

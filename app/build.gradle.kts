@@ -60,6 +60,10 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx")
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.fragment.ktx)
     kapt("com.github.bumptech.glide:compiler:4.16.0")
     implementation ("com.google.android.gms:play-services-auth:20.7.0")
     //implementation("com.google.firebase:firebase-firestore")

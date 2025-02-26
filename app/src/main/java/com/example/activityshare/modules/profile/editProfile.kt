@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.activityshare.R
 
 class editProfile : Fragment() {
@@ -19,7 +20,7 @@ class editProfile : Fragment() {
     private lateinit var passwordEditText: EditText
     private lateinit var updateButton: Button
     private lateinit var usernameEditText: EditText
-    private lateinit var viewModel: EditProfileViewModel
+    private lateinit var viewModel: editProfileViewModel
     private lateinit var profileImageView: ImageView
     private var imageUri: Uri? = null
 
@@ -30,7 +31,6 @@ class editProfile : Fragment() {
         uri?.let {
             imageUri = it
             profileImageView.setImageURI(it)
-            uploadImageToFirebase(it)
         }
     }
 
@@ -45,15 +45,24 @@ class editProfile : Fragment() {
         usernameEditText = view.findViewById(R.id.fragment_edit_profile_username)
         profileImageView = view.findViewById(R.id.fragment_edit_profile_image)
 
-        viewModel = ViewModelProvider(this).get(EditProfileViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(editProfileViewModel::class.java)
 
         updateButton.setOnClickListener {
-            updatePassword()
-            updateUsername()
+            val newPassword = passwordEditText.text.toString().trim()
+            val newUsername = usernameEditText.text.toString().trim()
 
+            if (newPassword.isNotEmpty()) {
+                updatePassword()
+                findNavController().navigate(R.id.profile)
+            }
+            if (newUsername.isNotEmpty()) {
+                updateUsername()
+                findNavController().navigate(R.id.profile)
+            }
             imageUri?.let { uri ->
                 uploadImageToFirebase(uri)
-            } ?: Toast.makeText(requireContext(), "Please select an image first", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.profile)
+            }
         }
 
         profileImageView.setOnClickListener {

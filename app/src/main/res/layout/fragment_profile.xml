@@ -27,14 +27,6 @@
         android:src="@drawable/ic_logout" />
     </FrameLayout>
 
-<!--    <ImageView-->
-<!--        android:id="@+id/fragment_profile_image_view"-->
-<!--        android:layout_width="398dp"-->
-<!--        android:layout_height="150dp"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:src="@drawable/profile_placeholder" />-->
-
     <ImageView
         android:id="@+id/fragment_profile_image_view"
         android:layout_width="150dp"

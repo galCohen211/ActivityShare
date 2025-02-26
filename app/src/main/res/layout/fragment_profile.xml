@@ -27,13 +27,32 @@
         android:src="@drawable/ic_logout" />
     </FrameLayout>
 
+<!--    <ImageView-->
+<!--        android:id="@+id/fragment_profile_image_view"-->
+<!--        android:layout_width="398dp"-->
+<!--        android:layout_height="150dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:src="@drawable/profile_placeholder" />-->
+
     <ImageView
         android:id="@+id/fragment_profile_image_view"
-        android:layout_width="398dp"
+        android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="10dp"
         android:layout_gravity="center"
-        android:src="@drawable/profile_placeholder" />
+        android:layout_marginTop="10dp"
+        android:src="@drawable/profile_placeholder"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/fragment_profile_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"/>
 
     <Button
         android:id="@+id/fragment_profile_my_activities_button"

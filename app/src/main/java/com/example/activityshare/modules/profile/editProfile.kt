@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.activityshare.R
 
 class editProfile : Fragment() {
@@ -52,12 +53,15 @@ class editProfile : Fragment() {
 
             if (newPassword.isNotEmpty()) {
                 updatePassword()
+                findNavController().navigate(R.id.profile)
             }
             if (newUsername.isNotEmpty()) {
                 updateUsername()
+                findNavController().navigate(R.id.profile)
             }
             imageUri?.let { uri ->
                 uploadImageToFirebase(uri)
+                findNavController().navigate(R.id.profile)
             }
         }
 

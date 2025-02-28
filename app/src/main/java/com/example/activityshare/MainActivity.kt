@@ -41,6 +41,12 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.profile)
                     true
                 }
+
+                R.id.chat_ai -> {
+                    // Navigate to CHAT AI page
+                    navController.navigate(R.id.action_homePage_to_AIChatFragment)
+                    true
+                }
                 else -> false
             }
         }

@@ -48,11 +48,12 @@ dependencies {
 
     // OkHttp for logging (optional but useful)
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+    implementation("com.squareup.okhttp3:okhttp:4.11.0") // Use latest version
 
     // Gson for JSON parsing
     implementation("com.google.code.gson:gson:2.8.6")
     // Firebase dependencies
-    implementation (platform("com.google.firebase:firebase-bom:32.2.0"))
+    implementation(platform("com.google.firebase:firebase-bom:32.2.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-storage-ktx")
@@ -65,7 +66,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.fragment.ktx)
     kapt("com.github.bumptech.glide:compiler:4.16.0")
-    implementation ("com.google.android.gms:play-services-auth:20.7.0")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
     //implementation("com.google.firebase:firebase-firestore")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

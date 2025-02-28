@@ -17,6 +17,8 @@ import com.example.activityshare.modules.addActivitySharePost.PostsAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import okhttp3.*
+
 
 class homePage : Fragment() {
     private lateinit var recyclerView: RecyclerView
@@ -63,7 +65,11 @@ class homePage : Fragment() {
             }
             .addOnFailureListener { exception ->
                 progressBar.visibility = View.GONE
-                Toast.makeText(requireContext(), "Failed to load posts: ${exception.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Failed to load posts: ${exception.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
     }
 }

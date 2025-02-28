@@ -44,7 +44,16 @@
         <action
             android:id="@+id/action_homePage_to_addPost"
             app:destination="@id/addPost" />
+
+        <action
+            android:id="@+id/action_homePage_to_AIChatFragment"
+            app:destination="@id/AIChatFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/AIChatFragment"
+        android:name="com.example.activityshare.modules.chatAI.AIChatFragment"
+        android:label="AI Chat"
+        tools:layout="@layout/fragment_ai_chat" />
     <fragment
         android:id="@+id/profile"
         android:name="com.example.activityshare.modules.profile.profile"

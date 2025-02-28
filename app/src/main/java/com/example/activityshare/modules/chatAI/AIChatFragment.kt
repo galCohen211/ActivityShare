@@ -48,14 +48,13 @@ class AIChatFragment : Fragment() {
     }
 
     private fun makeApiRequest(question: String) {
-        val apiKey = "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"  // Replace with your actual API key
-        val model = "tiiuae/falcon-7b-instruct"  // Use a working model
+        val apiKey = "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"
+        val model = "tiiuae/falcon-7b-instruct"
 
-        // Configure OkHttpClient with Modern TLS settings
         val client = OkHttpClient.Builder()
-            .connectionSpecs(listOf(ConnectionSpec.MODERN_TLS)) // Enforces TLS 1.2+
-            .retryOnConnectionFailure(true) // Retry if the request fails
-            .connectTimeout(30, TimeUnit.SECONDS) // Set timeout to avoid hanging connections
+            .connectionSpecs(listOf(ConnectionSpec.MODERN_TLS))
+            .retryOnConnectionFailure(true)
+            .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .build()
 
@@ -67,7 +66,7 @@ class AIChatFragment : Fragment() {
             RequestBody.create("application/json; charset=utf-8".toMediaType(), jsonRequest)
 
         val request = Request.Builder()
-            .url("https://api-inference.huggingface.co/models/$model") // ✅ Use domain instead of IP
+            .url("https://api-inference.huggingface.co/models/$model")
             .post(requestBody)
             .addHeader("Authorization", "Bearer $apiKey")
             .addHeader("Content-Type", "application/json")
@@ -85,8 +84,8 @@ class AIChatFragment : Fragment() {
             override fun onResponse(call: Call, response: Response) {
                 response.use {
                     val responseData = response.body?.string()
-                    val jsonArray = JSONArray(responseData)  // Convert response to JSON Array
-                    val generatedText = jsonArray.getJSONObject(0).getString("generated_text")  // Extract text
+                    val jsonArray = JSONArray(responseData)
+                    val generatedText = jsonArray.getJSONObject(0).getString("generated_text")
 
                     activity?.runOnUiThread {
                         progressBar.visibility = View.GONE

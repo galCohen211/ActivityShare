@@ -44,6 +44,10 @@
         <action
             android:id="@+id/action_homePage_to_addPost"
             app:destination="@id/addPost" />
+
+        <action
+            android:id="@+id/action_homePage_to_editPost"
+            app:destination="@id/editPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/profile"
@@ -81,4 +85,13 @@
         android:name="com.example.activityshare.modules.viewMyActivity.viewMyPosts"
         android:label="fragment_view_my_posts"
         tools:layout="@layout/fragment_view_my_posts" />
+
+    <fragment
+        android:id="@+id/editPostFragment"
+        android:name="com.example.activityshare.modules.editPost.EditPostFragment"
+        android:label="Edit Post">
+        <argument
+            android:name="postId"
+            app:argType="string" />
+    </fragment>
 </navigation>

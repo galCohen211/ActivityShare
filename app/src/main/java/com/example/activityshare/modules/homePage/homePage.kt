@@ -38,7 +38,7 @@ class homePage : Fragment() {
         recyclerView = view.findViewById(R.id.recyclerViewHome)
         progressBar = view.findViewById(R.id.fragment_home_page_progress_bar_home)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        postsAdapter = PostsAdapter(postList)
+        postsAdapter = PostsAdapter(postList, findNavController())
         recyclerView.adapter = postsAdapter
 
         fetchUserPosts()

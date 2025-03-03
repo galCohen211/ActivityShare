@@ -17,8 +17,6 @@ import com.bumptech.glide.Glide
 import com.example.activityshare.R
 import com.example.activityshare.model.Post
 import com.example.activityshare.modules.addActivitySharePost.ImgurClient
-//import com.example.activityshare.network.ImgurClient
-//import com.example.activityshare.network.ImgurResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineScope
@@ -27,7 +25,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 

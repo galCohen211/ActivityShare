@@ -43,7 +43,9 @@ class profile : Fragment() {
             findNavController().navigate(R.id.editProfile)
         }
         myActivitys.setOnClickListener {
-            findNavController().navigate(R.id.viewMyPosts)
+            //val action = ProfileFragmentDirections.actionProfileToViewMyPosts()
+            findNavController().navigate(R.id.myPostsFragment)
+            true
         }
         return binding
     }

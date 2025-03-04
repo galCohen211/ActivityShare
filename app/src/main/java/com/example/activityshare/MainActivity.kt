@@ -21,7 +21,8 @@ class MainActivity : AppCompatActivity() {
 
         bottomBar = findViewById(R.id.bottom_navigation)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
         // Set up navigation for bottom bar items
@@ -32,15 +33,24 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.homePage)
                     true
                 }
+
                 R.id.item_add -> {
                     navController.navigate(R.id.addPost)
                     true
                 }
+
                 R.id.item_profile -> {
                     // Navigate to Profile page
                     navController.navigate(R.id.profile)
                     true
                 }
+
+                R.id.myPostsFragment -> {
+                    // Navigate to My Posts page
+                    navController.navigate(R.id.myPostsFragment)
+                    true
+                }
+
                 else -> false
             }
         }

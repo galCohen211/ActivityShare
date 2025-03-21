@@ -14,6 +14,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.activityshare.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+
 
 class profile : Fragment() {
 
@@ -50,6 +52,11 @@ class profile : Fragment() {
         return binding
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadUserProfile()
+    }
+
     private fun loadUserProfile() {
         val userId = auth.currentUser?.uid
         if (userId != null) {
@@ -57,7 +64,24 @@ class profile : Fragment() {
                 .addOnSuccessListener { document ->
                     if (document.exists()) {
                         val username = document.getString("username") ?: "User"
+                        val avatarUrl = document.getString("avatar")
+
                         usernameTextView.text = username
+                        Log.d("Profile", "Avatar URL received: $avatarUrl")
+
+                        if (!avatarUrl.isNullOrEmpty() && avatarUrl.startsWith("http")) {
+                            Glide.with(this)
+                                .load(avatarUrl)
+                                .apply(RequestOptions.circleCropTransform())
+                                .placeholder(R.drawable.profile_placeholder)
+                                .error(R.drawable.profile_placeholder)
+                                .skipMemoryCache(true)
+                                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                .into(profileImageView)
+                        } else {
+                            Log.d("Profile", "Invalid avatar URL, setting default image")
+                            profileImageView.setImageResource(R.drawable.profile_placeholder)
+                        }
                     } else {
                         Log.d("Profile", "Document does not exist")
                     }
@@ -69,6 +93,4 @@ class profile : Fragment() {
             Log.d("Profile", "User ID is null")
         }
     }
-
-
 }

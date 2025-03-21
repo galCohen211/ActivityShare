@@ -267,7 +267,6 @@ class addPost : Fragment() {
                     .addOnSuccessListener {
                         Toast.makeText(requireContext(), "Post Created!", Toast.LENGTH_SHORT).show()
 
-                        // ✅ שמירה ל־Room
                         val postEntity = PostEntity(
                             postId = postId,
                             userId = userId,

@@ -8,26 +8,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.activityshare.R
 import com.example.activityshare.model.Post
+import com.example.activityshare.model.toPost
 import com.example.activityshare.modules.addActivitySharePost.PostsAdapter
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
+import com.example.activityshare.repository.PostRepository
+import kotlinx.coroutines.launch
 
 class homePage : Fragment() {
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var postsAdapter: PostsAdapter
     private val postList = mutableListOf<Post>()
-    private val firestore = FirebaseFirestore.getInstance()
     private lateinit var progressBar: ProgressBar
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var repository: PostRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,33 +34,37 @@ class homePage : Fragment() {
 
         recyclerView = view.findViewById(R.id.recyclerViewHome)
         progressBar = view.findViewById(R.id.fragment_home_page_progress_bar_home)
+
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         postsAdapter = PostsAdapter(postList)
         recyclerView.adapter = postsAdapter
 
-        fetchUserPosts()
+        repository = PostRepository(requireContext())
+
+        fetchPostsFromRoom()
 
         return view
     }
 
-    private fun fetchUserPosts() {
+    private fun fetchPostsFromRoom() {
         progressBar.visibility = View.VISIBLE
 
-        firestore.collection("posts")
-            .orderBy("timestamp", Query.Direction.DESCENDING)
-            .get()
-            .addOnSuccessListener { documents ->
-                progressBar.visibility = View.GONE
+        lifecycleScope.launch {
+            try {
+                val postsFromRoom = repository.fetchPosts()
+                Log.d("homePage", "Fetched ${postsFromRoom.size} posts from Room")
+
                 postList.clear()
-                for (document in documents) {
-                    val post = document.toObject(Post::class.java)
-                    postList.add(post)
-                }
+                postList.addAll(postsFromRoom.map { it.toPost() })
                 postsAdapter.notifyDataSetChanged()
-            }
-            .addOnFailureListener { exception ->
+
+            } catch (e: Exception) {
+                Log.e("homePage", "Full error", e)
+                Log.e("homePage", "Error loading posts: ${e.message}")
+                Toast.makeText(requireContext(), "Error loading posts", Toast.LENGTH_SHORT).show()
+            } finally {
                 progressBar.visibility = View.GONE
-                Toast.makeText(requireContext(), "Failed to load posts: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
+        }
     }
 }

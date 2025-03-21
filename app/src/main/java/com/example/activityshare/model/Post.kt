@@ -1,6 +1,5 @@
 package com.example.activityshare.model
 
-import PostEntity
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 

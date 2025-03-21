@@ -1,7 +1,9 @@
+package com.example.activityshare.data.local
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.activityshare.model.PostEntity
 
 @Database(entities = [PostEntity::class], version = 1, exportSchema = false)
 abstract class PostDatabase : RoomDatabase() {
@@ -17,10 +19,13 @@ abstract class PostDatabase : RoomDatabase() {
                     context.applicationContext,
                     PostDatabase::class.java,
                     "post_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }
         }
+
     }
 }

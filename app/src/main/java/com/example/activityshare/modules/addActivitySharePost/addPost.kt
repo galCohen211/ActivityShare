@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.activityshare.R
 import com.example.activityshare.model.PostEntity
+import com.example.activityshare.modules.network.imgur.ImgurClient
 import com.example.activityshare.repository.PostRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore

@@ -1,5 +1,8 @@
 package com.example.activityshare.modules.homePage
 
+import android.app.DatePickerDialog
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.*
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -27,6 +30,8 @@ class homePage : Fragment() {
     private val postList = mutableListOf<Post>()
     private lateinit var progressBar: ProgressBar
     private lateinit var repository: PostRepository
+    private lateinit var filterFab: FloatingActionButton
+    private var selectedDate: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +41,7 @@ class homePage : Fragment() {
 
         recyclerView = view.findViewById(R.id.recyclerViewHome)
         progressBar = view.findViewById(R.id.fragment_home_page_progress_bar_home)
+        filterFab = view.findViewById(R.id.filterFab)
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         postsAdapter = PostsAdapter(postList)
@@ -45,7 +51,27 @@ class homePage : Fragment() {
 
         fetchPostsFromRoom()
 
+        filterFab.setOnClickListener {
+            showDatePicker()
+        }
+
         return view
+    }
+
+    private fun showDatePicker() {
+        val calendar = Calendar.getInstance()
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { _, year, month, dayOfMonth ->
+                val selected = String.format("%02d/%02d/%d", dayOfMonth, month + 1, year)
+                selectedDate = selected
+                fetchPostsFromRoom()
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.show()
     }
 
     private fun fetchPostsFromRoom() {
@@ -61,6 +87,11 @@ class homePage : Fragment() {
                     postsFromRoom
                         .map { it.toPost() }
                         .sortedByDescending { sdf.parse(it.date) }
+                        .filter { post ->
+                            val postDate = sdf.parse(post.date)?.let { sdf.format(it) }
+                            Log.d("FilterCheck", "Comparing: $postDate == $selectedDate")
+                            selectedDate == null || postDate == selectedDate
+                        }
                 )
                 postsAdapter.notifyDataSetChanged()
                 Log.d("homePage", "Fetched ${postList.size} sorted posts from Room")

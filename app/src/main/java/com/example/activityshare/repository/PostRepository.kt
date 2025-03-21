@@ -14,25 +14,11 @@ class PostRepository(context: Context) {
 
     suspend fun fetchPosts(): List<PostEntity> {
         return withContext(Dispatchers.IO) {
-            try {
-                val cachedPosts = postDao.getAllPosts()
-                Log.d("Repository", "Found ${cachedPosts.size} posts in Room")
-
-                if (cachedPosts.isNotEmpty()) {
-                    cachedPosts
-                } else {
-                    val posts = fetchFromFirestore()
-                    Log.d("Repository", "Fetched ${posts.size} posts from Firestore")
-
-                    postDao.insertPosts(posts)
-                    Log.d("Repository", "Inserted posts into Room")
-
-                    posts
-                }
-            } catch (e: Exception) {
-                Log.e("Repository", "fetchPosts error", e)
-                throw e
-            }
+            val posts = fetchFromFirestore()
+            postDao.clearAllPosts()
+            postDao.insertPosts(posts)
+            Log.d("Repository", "Refreshed ${posts.size} posts from Firestore")
+            posts
         }
     }
 

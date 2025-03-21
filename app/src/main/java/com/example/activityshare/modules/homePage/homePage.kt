@@ -17,6 +17,8 @@ import com.example.activityshare.model.toPost
 import com.example.activityshare.modules.addActivitySharePost.PostsAdapter
 import com.example.activityshare.repository.PostRepository
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class homePage : Fragment() {
 
@@ -52,15 +54,19 @@ class homePage : Fragment() {
         lifecycleScope.launch {
             try {
                 val postsFromRoom = repository.fetchPosts()
-                Log.d("homePage", "Fetched ${postsFromRoom.size} posts from Room")
 
+                val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                 postList.clear()
-                postList.addAll(postsFromRoom.map { it.toPost() })
+                postList.addAll(
+                    postsFromRoom
+                        .map { it.toPost() }
+                        .sortedByDescending { sdf.parse(it.date) }
+                )
                 postsAdapter.notifyDataSetChanged()
+                Log.d("homePage", "Fetched ${postList.size} sorted posts from Room")
 
             } catch (e: Exception) {
                 Log.e("homePage", "Full error", e)
-                Log.e("homePage", "Error loading posts: ${e.message}")
                 Toast.makeText(requireContext(), "Error loading posts", Toast.LENGTH_SHORT).show()
             } finally {
                 progressBar.visibility = View.GONE

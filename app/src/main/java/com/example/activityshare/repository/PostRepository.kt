@@ -45,4 +45,10 @@ class PostRepository(context: Context) {
             posts
         }
     }
+
+    suspend fun insertSinglePost(post: PostEntity) {
+        withContext(Dispatchers.IO) {
+            postDao.insertPosts(listOf(post))
+        }
+    }
 }

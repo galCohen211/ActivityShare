@@ -2,7 +2,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "posts")
-data class postEntity(
+data class PostEntity(
     @PrimaryKey val postId: String,
     val userId: String,
     val content: String,

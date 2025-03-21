@@ -5,10 +5,10 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 class postRepository(context: Context) {
-    private val postDao = postDatabase.getDatabase(context).postDao()
+    private val postDao = PostDatabase.getDatabase(context).postDao()
     private val firestore = FirebaseFirestore.getInstance()
 
-    suspend fun fetchPosts(): List<postEntity> {
+    suspend fun fetchPosts(): List<PostEntity> {
         return withContext(Dispatchers.IO) {
             val cachedPosts = postDao.getAllPosts()
             if (cachedPosts.isNotEmpty()) {
@@ -21,11 +21,11 @@ class postRepository(context: Context) {
         }
     }
 
-    private suspend fun fetchFromFirestore(): List<postEntity> {
+    private suspend fun fetchFromFirestore(): List<PostEntity> {
         return withContext(Dispatchers.IO) {
             val snapshot = firestore.collection("posts").get().await()
             snapshot.documents.mapNotNull { doc ->
-                doc.toObject(postEntity::class.java)
+                doc.toObject(PostEntity::class.java)
             }
         }
     }

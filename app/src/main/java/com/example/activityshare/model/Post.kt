@@ -1,5 +1,6 @@
 package com.example.activityshare.model
 
+import PostEntity
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
@@ -15,3 +16,16 @@ data class Post(
     val username: String = "",
     val avatar: String = ""
 ) : Parcelable
+
+fun PostEntity.toPost(): Post {
+    return Post(
+        postId = this.postId,
+        userId = this.userId,
+        content = this.content,
+        date = this.date,
+        time = this.time,
+        imageUri = this.imageUri,
+        username = this.username,
+        avatar = this.avatar
+    )
+}

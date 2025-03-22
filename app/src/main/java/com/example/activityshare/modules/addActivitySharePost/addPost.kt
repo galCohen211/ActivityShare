@@ -20,6 +20,7 @@ import com.example.activityshare.R
 import com.example.activityshare.model.PostEntity
 import com.example.activityshare.modules.network.imgur.ImgurClient
 import com.example.activityshare.repository.PostRepository
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -283,6 +284,8 @@ class addPost : Fragment() {
                         }
 
                         findNavController().navigate(R.id.homePage)
+                        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+                        bottomNav.selectedItemId = R.id.item_home
                     }
                     .addOnFailureListener {
                         Toast.makeText(

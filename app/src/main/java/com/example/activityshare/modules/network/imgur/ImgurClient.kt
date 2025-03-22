@@ -1,4 +1,4 @@
-package com.example.activityshare.modules.addActivitySharePost
+package com.example.activityshare.modules.network.imgur
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

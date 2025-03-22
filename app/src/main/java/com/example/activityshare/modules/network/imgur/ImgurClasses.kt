@@ -1,4 +1,4 @@
-package com.example.activityshare.modules.addActivitySharePost
+package com.example.activityshare.modules.network.imgur
 
 data class ImgurResponse(
     val data: ImgurData,

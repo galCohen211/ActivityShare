@@ -17,6 +17,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.activityshare.R
+import com.example.activityshare.model.PostEntity
+import com.example.activityshare.modules.network.imgur.ImgurClient
+import com.example.activityshare.repository.PostRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -242,7 +245,6 @@ class addPost : Fragment() {
         time: String,
         imageUri: String?
     ) {
-
         firestore.collection("users").document(userId).get()
             .addOnSuccessListener { userDocument ->
                 val username = userDocument.getString("username")
@@ -260,23 +262,37 @@ class addPost : Fragment() {
                     "avatar" to avatar
                 )
 
-
-
                 firestore.collection("posts").document(postId)
                     .set(post)
                     .addOnSuccessListener {
                         Toast.makeText(requireContext(), "Post Created!", Toast.LENGTH_SHORT).show()
-                        //clearFields()
+
+                        val postEntity = PostEntity(
+                            postId = postId,
+                            userId = userId,
+                            content = content,
+                            date = date,
+                            time = time,
+                            imageUri = imageUri ?: "",
+                            username = username ?: "",
+                            avatar = avatar ?: ""
+                        )
+
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val repository = PostRepository(requireContext())
+                            repository.insertSinglePost(postEntity)
+                        }
+
+                        findNavController().navigate(R.id.homePage)
                     }
                     .addOnFailureListener {
                         Toast.makeText(
                             requireContext(),
                             "Failed to create post",
                             Toast.LENGTH_SHORT
-                        )
-                            .show()
+                        ).show()
                     }
             }
-
     }
+
 }

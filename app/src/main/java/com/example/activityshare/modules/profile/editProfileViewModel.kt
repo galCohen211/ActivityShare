@@ -2,14 +2,21 @@ package com.example.activityshare.modules.profile
 
 import android.app.Activity
 import android.net.Uri
+import android.provider.MediaStore
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.activityshare.modules.network.imgur.ImgurClient
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.tasks.await
 
 class editProfileViewModel : ViewModel() {
@@ -54,24 +61,49 @@ class editProfileViewModel : ViewModel() {
     }
 
     fun uploadProfileImage(imageUri: Uri, activity: Activity, callback: (Boolean) -> Unit) {
-        val userId = firebaseAuth.currentUser?.uid
-        if (userId == null) {
-            Log.e("EditProfileViewModel", "User is not authenticated")
-            callback(false)
-            return
-        }
+        val userId = firebaseAuth.currentUser?.uid ?: return callback(false)
+        val imgurService = ImgurClient.create()
 
-        db.collection("users").document(userId)
-            .update("avatar", imageUri)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.d("EditProfileViewModel", "Profile image URL updated successfully: $imageUri")
-                    updateAvatarInPosts(imageUri,callback)
+        val imageFile = File(getRealPathFromURI(activity, imageUri))
+        val requestFile = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
+        val body = MultipartBody.Part.createFormData("image", imageFile.name, requestFile)
+
+        val clientId = "Client-ID 58f3986e4ad864f"
+
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = imgurService.uploadImage(clientId, body)
+                if (response.isSuccessful && response.body()?.success == true) {
+                    val imgurLink = response.body()?.data?.link
+                    Log.d("ImgurUpload", "Profile image uploaded: $imgurLink")
+
+                    if (imgurLink != null) {
+                        db.collection("users").document(userId)
+                            .update("avatar", imgurLink)
+                            .addOnSuccessListener {
+                                Log.d("EditProfileVM", "Avatar URL saved!")
+
+                                updateAvatarInPosts(imgurLink) { updateSuccess ->
+                                    callback(updateSuccess)
+                                }
+                            }
+                            .addOnFailureListener {
+                                Log.e("EditProfileVM", "Failed saving avatar: ${it.message}")
+                                callback(false)
+                            }
+                    } else {
+                        Log.e("ImgurUpload", "Imgur link was null")
+                        callback(false)
+                    }
                 } else {
-                    Log.e("EditProfileViewModel", "Error updating profile image URL: ${task.exception?.message}")
+                    Log.e("ImgurUpload", "Imgur upload failed: ${response.errorBody()?.string()}")
                     callback(false)
                 }
+            } catch (e: Exception) {
+                Log.e("ImgurUpload", "Exception: ${e.message}")
+                callback(false)
             }
+        }
     }
 
     fun updateUsernameInPosts(newUsername: String, callback: (Boolean) -> Unit) {
@@ -92,15 +124,20 @@ class editProfileViewModel : ViewModel() {
         }
     }
 
-    fun updateAvatarInPosts(newAvatarUrl: Uri, callback: (Boolean) -> Unit) {
+    fun updateAvatarInPosts(newAvatarUrl: String, callback: (Boolean) -> Unit) {
         val userId = firebaseAuth.currentUser?.uid ?: return
 
         viewModelScope.launch {
             try {
-                val postsSnapshot = db.collection("posts").whereEqualTo("userId", userId).get().await()
+                val postsSnapshot = db.collection("posts")
+                    .whereEqualTo("userId", userId)
+                    .get()
+                    .await()
+
                 for (document in postsSnapshot.documents) {
-                    document.reference.update("avatar", newAvatarUrl.toString()).await()
+                    document.reference.update("avatar", newAvatarUrl).await()
                 }
+
                 Log.d("EditProfileViewModel", "Avatar updated successfully in posts")
                 callback(true)
             } catch (e: Exception) {
@@ -109,4 +146,19 @@ class editProfileViewModel : ViewModel() {
             }
         }
     }
+
+
+    private fun getRealPathFromURI(activity: Activity, uri: Uri): String {
+        var path = ""
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = activity.contentResolver.query(uri, projection, null, null, null)
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                path = it.getString(columnIndex)
+            }
+        }
+        return path
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.example.activityshare.modules.addActivitySharePost
+package com.example.activityshare.modules.network.imgur
 
 import okhttp3.MultipartBody
 import retrofit2.Response

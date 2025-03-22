@@ -197,7 +197,6 @@ class addPost : Fragment() {
                             "Post Created with Imgur Image!",
                             Toast.LENGTH_SHORT
                         ).show()
-                        findNavController().navigate(R.id.homePage)
                     }
                 } else {
                     Log.e("ImgurUpload", "Upload failed: ${response.errorBody()?.string()}")

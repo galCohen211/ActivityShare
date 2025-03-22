@@ -45,9 +45,9 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
-                R.id.myPostsFragment -> {
-                    // Navigate to My Posts page
-                    navController.navigate(R.id.myPostsFragment)
+                R.id.item_chat -> {
+                    // Navigate to CHAT AI page
+                    navController.navigate(R.id.AIChatFragment)
                     true
                 }
 

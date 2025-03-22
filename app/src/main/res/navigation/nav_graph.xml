@@ -46,8 +46,8 @@
             app:destination="@id/addPost" />
 
         <action
-            android:id="@+id/action_homePage_to_MyPostsFragment"
-            app:destination="@id/myPostsFragment" />
+            android:id="@+id/action_homePage_to_AIChatFragment"
+            app:destination="@id/AIChatFragment" />
     </fragment>
     <fragment
         android:id="@+id/profile"
@@ -86,4 +86,9 @@
             android:id="@+id/action_forgotPassword_to_login_Fragment"
             app:destination="@id/login_Fragment" />
     </fragment>
+    <fragment
+        android:id="@+id/AIChatFragment"
+        android:name="com.example.activityshare.modules.network.ChatAi.AIChatFragment"
+        android:label="fragment_ai_chat"
+        tools:layout="@layout/fragment_ai_chat" />
 </navigation>

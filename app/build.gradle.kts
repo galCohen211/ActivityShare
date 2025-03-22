@@ -53,6 +53,7 @@ dependencies {
 
     // OkHttp for logging (optional but useful)
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
 
     // Gson for JSON parsing
     implementation("com.google.code.gson:gson:2.8.6")

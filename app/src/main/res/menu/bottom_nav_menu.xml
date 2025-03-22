@@ -18,10 +18,16 @@
         android:icon="@drawable/baseline_account"
         android:title="Profile" />
 
+<!--    <item-->
+<!--        android:id="@+id/myPostsFragment"-->
+<!--        android:enabled="true"-->
+<!--        android:icon="@drawable/my_posts"-->
+<!--        android:title="My Posts" />-->
+
     <item
-        android:id="@+id/myPostsFragment"
+        android:id="@+id/item_chat"
         android:enabled="true"
-        android:icon="@drawable/my_posts"
-        android:title="My Posts" />
+        android:icon="@drawable/ic_chat_gpt"
+        android:title="Chat Gpt" />
 
 </menu>

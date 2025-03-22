@@ -9,7 +9,7 @@
         android:id="@+id/register_Fragment"
         android:name="com.example.activityshare.modules.register.RegisterFragment"
         android:label="Register Fragment"
-        tools:layout="@layout/fragment_register">
+        tools:layout="@layout/fragment_register" >
         <action
             android:id="@+id/action_register_Fragment_to_homePage"
             app:destination="@id/homePage" />
@@ -37,7 +37,7 @@
         android:id="@+id/homePage"
         android:name="com.example.activityshare.modules.homePage.homePage"
         android:label="fragment_home_page"
-        tools:layout="@layout/fragment_home_page">
+        tools:layout="@layout/fragment_home_page" >
         <action
             android:id="@+id/action_homePage_to_profile"
             app:destination="@id/profile" />
@@ -50,14 +50,14 @@
             app:destination="@id/editPostFragment" />
 
         <action
-            android:id="@+id/action_homePage_to_MyPostsFragment"
-            app:destination="@id/myPostsFragment" />
+            android:id="@+id/action_homePage_to_AIChatFragment"
+            app:destination="@id/AIChatFragment" />
     </fragment>
     <fragment
         android:id="@+id/profile"
         android:name="com.example.activityshare.modules.profile.profile"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile">
+        tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/action_profile_to_editProfile"
             app:destination="@id/editProfile" />
@@ -85,24 +85,25 @@
         android:id="@+id/forgotPassword"
         android:name="com.example.activityshare.modules.login.forgotPassword"
         android:label="fragment_forgot_password"
-        tools:layout="@layout/fragment_forgot_password">
+        tools:layout="@layout/fragment_forgot_password" >
         <action
             android:id="@+id/action_forgotPassword_to_login_Fragment"
             app:destination="@id/login_Fragment" />
     </fragment>
-
     <fragment
-        android:id="@+id/viewMyPosts"
-        android:name="com.example.activityshare.modules.myPosts.MyPostsFragment"
-        android:label="fragment_view_my_posts"
-        tools:layout="@layout/fragment_my_posts" />
-
+        android:id="@+id/AIChatFragment"
+        android:name="com.example.activityshare.modules.network.ChatAi.AIChatFragment"
+        android:label="fragment_ai_chat"
+        tools:layout="@layout/fragment_ai_chat" />
     <fragment
         android:id="@+id/editPostFragment"
-        android:name="com.example.activityshare.modules.editPost.EditPostFragment"
-        android:label="Edit Post">
+        android:name="com.example.activityshare.modules.editPost.editPostFragment"
+        android:label="fragment_edit_post"
+        tools:layout="@layout/fragment_edit_post" >
         <argument
             android:name="postId"
             app:argType="string" />
     </fragment>
+
+
 </navigation>

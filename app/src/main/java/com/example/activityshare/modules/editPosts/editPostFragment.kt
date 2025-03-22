@@ -16,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.activityshare.R
 import com.example.activityshare.model.Post
-import com.example.activityshare.modules.addActivitySharePost.ImgurClient
+import com.example.activityshare.modules.network.imgur.ImgurClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineScope
@@ -28,7 +28,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
-class EditPostFragment : Fragment() {
+class editPostFragment : Fragment() {
 
     private lateinit var firestore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth

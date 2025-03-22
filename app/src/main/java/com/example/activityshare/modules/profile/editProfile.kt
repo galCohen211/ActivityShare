@@ -53,15 +53,12 @@ class editProfile : Fragment() {
 
             if (newPassword.isNotEmpty()) {
                 updatePassword()
-                findNavController().navigate(R.id.profile)
             }
             if (newUsername.isNotEmpty()) {
                 updateUsername()
-                findNavController().navigate(R.id.profile)
             }
             imageUri?.let { uri ->
                 uploadImageToFirebase(uri)
-                findNavController().navigate(R.id.profile)
             }
         }
 
@@ -80,6 +77,7 @@ class editProfile : Fragment() {
         viewModel.uploadProfileImage(uri, requireActivity()) { success ->
             if (success) {
                 Toast.makeText(requireContext(), "Profile image updated successfully!", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.profile)
             } else {
                 Toast.makeText(requireContext(), "Error updating profile image.", Toast.LENGTH_SHORT).show()
             }
@@ -91,6 +89,7 @@ class editProfile : Fragment() {
         viewModel.updatePassword(newPassword, requireActivity()) { success ->
             if (success) {
                 Toast.makeText(requireContext(), "Password updated successfully!", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.profile)
             } else {
                 Toast.makeText(requireContext(), "Error updating password.", Toast.LENGTH_SHORT).show()
             }
@@ -102,6 +101,7 @@ class editProfile : Fragment() {
         viewModel.updateUsername(newUsername, requireActivity()) { success ->
             if (success) {
                 Toast.makeText(requireContext(), "Username updated successfully!", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.profile)
             } else {
                 Toast.makeText(requireContext(), "Error updating username.", Toast.LENGTH_SHORT).show()
             }

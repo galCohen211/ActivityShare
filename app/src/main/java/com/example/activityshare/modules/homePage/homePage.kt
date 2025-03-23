@@ -58,7 +58,7 @@ class homePage : Fragment() {
         filterFab = view.findViewById(R.id.filterFab)
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        postsAdapter = PostsAdapter(postList, findNavController())
+        postsAdapter = PostsAdapter(postList, findNavController(), showEditButton = false)
         recyclerView.adapter = postsAdapter
 
         repository = PostRepository(requireContext())

@@ -70,7 +70,13 @@
         android:id="@+id/myPostsFragment"
         android:name="com.example.activityshare.modules.myPosts.MyPostsFragment"
         android:label="My Posts"
-        tools:layout="@layout/fragment_my_posts" />
+        tools:layout="@layout/fragment_my_posts">
+
+        <action
+        android:id="@+id/action_myPostsFragment_to_editPost"
+        app:destination="@id/editPostFragment" />
+
+    </fragment>
     <fragment
         android:id="@+id/editProfile"
         android:name="com.example.activityshare.modules.profile.editProfile"

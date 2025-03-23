@@ -6,16 +6,19 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.activityshare.R
 import com.bumptech.glide.Glide
 import com.example.activityshare.model.Post
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class PostsAdapter(
-    private val postList: List<Post>,
-    private val navController: NavController
+    private val postList: MutableList<Post>,
+    private val navController: NavController,
+    private val showEditButton: Boolean
 ) : RecyclerView.Adapter<PostsAdapter.PostViewHolder>() {
 
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -55,20 +58,46 @@ class PostsAdapter(
             holder.postImage.setImageResource(R.drawable.add_photo) // Add a default image
         }
 
-        // Show edit button only if the current user is the post owner
-        if (post.userId == currentUserId) {
+        val deleteButton = holder.itemView.findViewById<Button>(R.id.delete_button)
+
+        // Show edit and delete buttons only if the current user is the post owner
+        if (showEditButton && post.userId == currentUserId) {
             holder.editButton.visibility = View.VISIBLE
             holder.editButton.setOnClickListener {
                 val action =
-                    com.example.activityshare.modules.homePage.homePageDirections.actionHomePageToEditPost(
+                    com.example.activityshare.modules.myPosts.MyPostsFragmentDirections.actionMyPostsFragmentToEditPost(
                         post.postId
                     )
+
                 navController.navigate(action)
+            }
+            deleteButton.visibility = View.VISIBLE
+            deleteButton.setOnClickListener {
+                val firestore = FirebaseFirestore.getInstance()
+                firestore.collection("posts").document(post.postId)
+                    .delete()
+                    .addOnSuccessListener {
+                        Toast.makeText(holder.itemView.context, "Post deleted", Toast.LENGTH_SHORT)
+                            .show()
+                        val position = holder.adapterPosition
+                        if (position != RecyclerView.NO_POSITION) {
+                            postList.removeAt(position)
+                            notifyItemRemoved(position)
+                        }
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(
+                            holder.itemView.context,
+                            "Failed to delete",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
             }
         } else {
             holder.editButton.visibility = View.GONE
-        }
+            deleteButton.visibility = View.GONE
 
+        }
     }
 
     override fun getItemCount(): Int = postList.size

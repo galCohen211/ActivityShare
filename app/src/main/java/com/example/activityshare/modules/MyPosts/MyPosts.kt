@@ -34,7 +34,7 @@ class MyPostsFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recyclerViewMyPosts)
         progressBar = view.findViewById(R.id.progressBarMyPosts)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        myPostsAdapter = PostsAdapter(myPostsList, findNavController())
+        myPostsAdapter = PostsAdapter(myPostsList, findNavController(), showEditButton = true)
         recyclerView.adapter = myPostsAdapter
 
         fetchMyPosts()

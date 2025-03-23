@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -28,7 +29,7 @@ class PostsAdapter(
         val time: TextView = itemView.findViewById(R.id.time)
         val userImage: ImageView = itemView.findViewById(R.id.post_user_image)
         val username: TextView = itemView.findViewById(R.id.post_username)
-        val editButton: Button = itemView.findViewById(R.id.edit_button)
+        val editButton: ImageButton = itemView.findViewById(R.id.edit_button)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
@@ -58,7 +59,7 @@ class PostsAdapter(
             holder.postImage.setImageResource(R.drawable.add_photo) // Add a default image
         }
 
-        val deleteButton = holder.itemView.findViewById<Button>(R.id.delete_button)
+        val deleteButton = holder.itemView.findViewById<ImageButton>(R.id.delete_button)
 
         // Show edit and delete buttons only if the current user is the post owner
         if (showEditButton && post.userId == currentUserId) {

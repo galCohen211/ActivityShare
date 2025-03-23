@@ -62,21 +62,29 @@
         android:textColor="@android:color/darker_gray"
         android:textSize="14sp" />
 
-    <Button
+    <ImageButton
         android:id="@+id/edit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:text="Edit"
-        android:visibility="gone" />
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_edit"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Edit Post"
+        android:scaleType="centerInside"
+        android:visibility="gone"
+        app:tint="@android:color/black" />
 
-    <Button
+
+    <ImageButton
         android:id="@+id/delete_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:text="Delete"
-        android:visibility="gone" />
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_edit"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Delete Post"
+        android:scaleType="centerInside"
+        android:visibility="gone"
+        app:tint="@android:color/black" />
+
 
 
 </LinearLayout>

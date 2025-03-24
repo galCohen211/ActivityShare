@@ -78,7 +78,7 @@
         android:id="@+id/delete_button"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/ic_edit"
+        android:src="@drawable/ic_trash_can"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="Delete Post"
         android:scaleType="centerInside"

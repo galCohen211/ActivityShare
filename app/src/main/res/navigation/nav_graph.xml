@@ -46,10 +46,6 @@
             app:destination="@id/addPost" />
 
         <action
-            android:id="@+id/action_homePage_to_editPost"
-            app:destination="@id/editPostFragment" />
-
-        <action
             android:id="@+id/action_homePage_to_AIChatFragment"
             app:destination="@id/AIChatFragment" />
     </fragment>

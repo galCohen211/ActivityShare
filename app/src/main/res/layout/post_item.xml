@@ -1,5 +1,4 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,8 +16,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingVertical="8dp">
 
         <TextView
@@ -27,9 +26,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Description"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/post_username"
@@ -50,10 +49,10 @@
         android:id="@+id/date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
         android:text=""
-        android:textSize="16sp"
         android:textColor="@android:color/holo_green_dark"
-        android:paddingBottom="4dp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/time"
@@ -62,6 +61,30 @@
         android:text=""
         android:textColor="@android:color/darker_gray"
         android:textSize="14sp" />
+
+    <ImageButton
+        android:id="@+id/edit_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_edit"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Edit Post"
+        android:scaleType="centerInside"
+        android:visibility="gone"
+        app:tint="@android:color/black" />
+
+
+    <ImageButton
+        android:id="@+id/delete_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_trash_can"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Delete Post"
+        android:scaleType="centerInside"
+        android:visibility="gone"
+        app:tint="@android:color/black" />
+
 
 
 </LinearLayout>

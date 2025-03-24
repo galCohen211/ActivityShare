@@ -66,7 +66,13 @@
         android:id="@+id/myPostsFragment"
         android:name="com.example.activityshare.modules.myPosts.MyPostsFragment"
         android:label="My Posts"
-        tools:layout="@layout/fragment_my_posts" />
+        tools:layout="@layout/fragment_my_posts">
+
+        <action
+        android:id="@+id/action_myPostsFragment_to_editPost"
+        app:destination="@id/editPostFragment" />
+
+    </fragment>
     <fragment
         android:id="@+id/editProfile"
         android:name="com.example.activityshare.modules.profile.editProfile"
@@ -91,4 +97,15 @@
         android:name="com.example.activityshare.modules.network.ChatAi.AIChatFragment"
         android:label="fragment_ai_chat"
         tools:layout="@layout/fragment_ai_chat" />
+    <fragment
+        android:id="@+id/editPostFragment"
+        android:name="com.example.activityshare.modules.editPost.editPostFragment"
+        android:label="fragment_edit_post"
+        tools:layout="@layout/fragment_edit_post" >
+        <argument
+            android:name="postId"
+            app:argType="string" />
+    </fragment>
+
+
 </navigation>

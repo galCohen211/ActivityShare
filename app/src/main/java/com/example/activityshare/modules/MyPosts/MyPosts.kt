@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.activityshare.R
@@ -33,7 +34,7 @@ class MyPostsFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recyclerViewMyPosts)
         progressBar = view.findViewById(R.id.progressBarMyPosts)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        myPostsAdapter = PostsAdapter(myPostsList)
+        myPostsAdapter = PostsAdapter(myPostsList, findNavController(), showEditButton = true)
         recyclerView.adapter = myPostsAdapter
 
         fetchMyPosts()

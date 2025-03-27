@@ -193,11 +193,11 @@ class addPost : Fragment() {
                     // Save post to Firestore with Imgur image link
                     withContext(Dispatchers.Main) {
                         savePostToFirestore(postId, userId, content, date, time, imgurLink)
-                        Toast.makeText(
-                            requireContext(),
-                            "Post Created with Imgur Image!",
-                            Toast.LENGTH_SHORT
-                        ).show()
+//                        Toast.makeText(
+//                            requireContext(),
+//                            "Post Created with Imgur Image!",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
                     }
                 } else {
                     Log.e("ImgurUpload", "Upload failed: ${response.errorBody()?.string()}")
